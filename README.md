@@ -15,12 +15,12 @@ re-implement code from aiofiles.
 ## Proposed Additions to the Asyncio Module
 * asyncio.input
 * asyncio.open
-* asyncio.os
+* asyncio.stat
 
-Note: now that sendfile was accepted in Python 3.7, asyncio.os might not make sense as
-  a submodule anymore.
+Note: now that sendfile was accepted in Python 3.7, asyncio.os might not make
+sense as a submodule anymore.
 
-### `asyncio.input([prompt], [executor])`
+### _coroutine_ `asyncionext.input([prompt], [loop], [executor]])`
 If the prompt argument is present, it is written to standard output without a
 trailing newline. The function asynchronously awaits a line from input, converts
 it to a string (stripping a trailing newline), and returns that. Example:
@@ -34,7 +34,7 @@ A future implementation might choose to not use an executor when one is not
 passed in and features are available from the operating system that either
 implement threads more efficiently or operate in the main thread.
 
-### `asyncio.open(filename, [loop], [executor])`
+### _coroutine_ `asyncionext.open(filename, [loop], [executor])`
 Like the open built-in function, except is awaitable and returns a file-like
 object with several methods exposed as coroutines. This implementation uses the
 passed in executor or the event loop's default executor. A future implementation
@@ -42,8 +42,17 @@ might choose to not use an executor when one is not passed in and a features are
 available from the operating system that either implement threads more
 efficiently or operate in the main thread.
 
-### `asyncio.os`
-Identical to aiofiles.os in the current implementation.
+### _coroutine_ `asyncionext.stat(path, *, dir_fd=None, follow_symlinks=True, [loop], [executor])`
+Get the status of a file or a file descriptor. Perform the equivalent of a
+`stat()` system call on the given path. path may be specified as either a string
+or bytes – directly or indirectly through the PathLike interface – or as an open
+file descriptor. Return a stat_result object.
+
+This function normally follows symlinks; to stat a symlink add the argument
+follow_symlinks=False, or use lstat().
+
+This function can support specifying a file descriptor and not following
+symlinks.
 
 
 ## Alternate Layout
