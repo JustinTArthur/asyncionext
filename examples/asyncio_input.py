@@ -11,6 +11,6 @@ async def sleep_and_print():
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     sleeper = loop.create_task(sleep_and_print())
-    result = loop.run_until_complete(asyncionext.input_async("Put some text in!"))
+    result = loop.run_until_complete(asyncionext.input("Put some text in!"))
     print("Got result!: " + result)
     loop.run_until_complete(sleeper)

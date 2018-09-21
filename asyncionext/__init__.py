@@ -6,7 +6,7 @@ import asyncio
 import aiofiles.os
 
 
-async def input_async(*args, loop=None, executor=None):
+async def input(*args, loop=None, executor=None):
     loop = loop or asyncio.get_event_loop()
     return await loop.run_in_executor(executor, input, *args)
 
